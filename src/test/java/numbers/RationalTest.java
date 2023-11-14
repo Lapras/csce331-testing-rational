@@ -151,4 +151,12 @@ public class RationalTest
         Rational value = new Rational(0);
         assertThrows(IllegalArgumentException.class, value::reciprocal);
     }
+
+    public void testTimes() {
+        Rational p = new Rational(2, 3);
+        Rational q = new Rational(5, 7);
+        Rational result = p.times(q);
+        assertThat("2 * 5 = 10", result.numerator(), is(10));
+        assertThat("3 * 7 = 21", result.denominator(), is(21));
+    }
 }

@@ -42,6 +42,10 @@ public class Rational
         return new Rational(denominator, numerator);
     }
 
+    public Rational times(Rational r) {
+        return new Rational(numerator*r.numerator, denominator*r.denominator);
+    }
+
     public int numerator() {
         return numerator;
      }
