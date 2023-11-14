@@ -44,4 +44,13 @@ public class RationalTest
         // And the value should have denominator 1
         assertThat("the denominator should be 1", value.denominator(), is(1));
     }
+
+    public void testSingleConstructor() {
+        // Given that I have constructed a `Rational` value using the argument `2`
+        Rational value = new Rational(2);
+        // Then the value should have numerator `2`
+        assertThat("the numerator should be 2", value.numerator(), is(2));
+        // And the value should have denominator `1`
+        assertThat("the denominator should be 1", value.denominator(), is(1));
+    }
 }
