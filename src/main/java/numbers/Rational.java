@@ -8,6 +8,7 @@ public class Rational
 {
 
     private int numerator;
+    private int denominator;
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
@@ -19,6 +20,12 @@ public class Rational
 
     public Rational(int num) {
         numerator = num;
+        denominator = 1;
+    }
+
+    Rational(int num, int den) {
+        numerator = num;
+        denominator = den;
     }
 
     public int numerator() {
@@ -26,6 +33,6 @@ public class Rational
      }
      
      public int denominator() {
-        return 1;
+        return denominator;
      }
 }
