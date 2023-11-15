@@ -166,4 +166,11 @@ public class RationalTest
         assertThat("0 == 0", zero.isZero(), is(true));
         assertThat("5 != 0", num.isZero(), is(false));
     }
+
+    public void testIsOne() {
+        Rational one = new Rational(1);
+        Rational num = new Rational(-2);
+        assertThat("1 == 1", one.isOne(), is(true));
+        assertThat("-2 != 1", num.isOne(), is(false));
+    }
 }

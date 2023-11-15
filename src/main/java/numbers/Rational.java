@@ -74,6 +74,15 @@ public class Rational
             return false;
         }
      }
+
+     public boolean isOne() {
+        simplify();
+        if(numerator == 1 && denominator == 1) {
+            return true;
+        } else {
+            return false;
+        }
+     }
      
      public static int gcd(int a, int b)
     {
