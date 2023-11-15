@@ -159,4 +159,11 @@ public class RationalTest
         assertThat("2 * 5 = 10", result.numerator(), is(10));
         assertThat("3 * 7 = 21", result.denominator(), is(21));
     }
+
+    public void testIsZero() {
+        Rational zero = new Rational(0);
+        Rational num = new Rational(5);
+        assertThat("0 == 0", zero.isZero(), is(true));
+        assertThat("5 != 0", num.isZero(), is(false));
+    }
 }

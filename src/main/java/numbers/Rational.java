@@ -66,6 +66,14 @@ public class Rational
             numerator *= -1;
         }
      }
+
+     public boolean isZero() {
+        if(numerator == 0) {
+            return true;
+        } else {
+            return false;
+        }
+     }
      
      public static int gcd(int a, int b)
     {
