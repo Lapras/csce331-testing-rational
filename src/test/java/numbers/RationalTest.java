@@ -173,4 +173,11 @@ public class RationalTest
         assertThat("1 == 1", one.isOne(), is(true));
         assertThat("-2 != 1", num.isOne(), is(false));
     }
+
+    public void testIsMinusOne() {
+        Rational one = new Rational(-1);
+        Rational num = new Rational(-2);
+        assertThat("-1 == 1", one.isMinusOne(), is(true));
+        assertThat("-2 != -1", num.isMinusOne(), is(false));
+    }
 }
