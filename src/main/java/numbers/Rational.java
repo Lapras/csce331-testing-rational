@@ -67,6 +67,14 @@ public class Rational
         }
      }
 
+     public Rational plus(Rational r) {
+        int num1 = numerator * r.denominator;
+        int num2  = r.numerator * denominator;
+        int den  = denominator * r.denominator;
+
+        return new Rational(num1+num2, den);
+     }
+
      public boolean isZero() {
         if(numerator == 0) {
             return true;
@@ -90,6 +98,36 @@ public class Rational
             return true;
         } else {
             return false;
+        }
+     }
+
+     public boolean equals(Object other) {
+        if(other instanceof Number) {
+            Number num = (Number) other;
+            double dub = num.doubleValue();
+            if((double)numerator/(double)denominator == dub) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (other instanceof Rational) {
+            Rational rat = (Rational) other;
+            if(rat.numerator == numerator && rat.denominator == denominator) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+     }
+
+     public String toString() {
+        simplify();
+        if(denominator == 1 || numerator == 0) {
+            return Integer.toString(numerator);
+        } else {
+            return (Integer.toString(numerator) + "/" + Integer.toString(denominator));
         }
      }
      

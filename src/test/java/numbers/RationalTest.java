@@ -176,8 +176,54 @@ public class RationalTest
 
     public void testIsMinusOne() {
         Rational one = new Rational(-1);
-        Rational num = new Rational(-2);
+        Rational num = new Rational(-9);
         assertThat("-1 == 1", one.isMinusOne(), is(true));
-        assertThat("-2 != -1", num.isMinusOne(), is(false));
+        assertThat("-9 != -1", num.isMinusOne(), is(false));
+    }
+
+    public void testToString() {
+        Rational zero = new Rational(0);
+        Rational two = new Rational (2);
+        Rational negThree = new Rational(-3);
+        Rational simplify = new Rational (10,2);
+        Rational frac = new Rational(5,7);
+        Rational negFrac = new Rational(-5,7);
+        Rational negFrac2 = new Rational(7,-5);
+
+        assertThat("0", zero.toString(), is("0"));
+        assertThat("2", two.toString(), is("2"));
+        assertThat("-3", negThree.toString(), is("-3"));
+        assertThat("10/2->5", simplify.toString(), is("5"));
+        assertThat("5/7",  frac.toString(), is("5/7"));
+        assertThat("-5/7", negFrac.toString(), is("-5/7"));
+        assertThat("7/-5 -> -7/5", negFrac2.toString(), is("-7/5"));
+    }
+
+    public void testEquals() {
+        Rational four = new Rational(4);
+        Rational four2 = new Rational(4,1);
+        Rational frac = new Rational(23,4);
+        String string = "hello";
+
+        assertThat("is Self", four.equals(four), is(true));
+        assertThat("4(r) == 4(r)", four.equals(four2), is(true));
+        assertThat("4(r) == 4", four.equals(4), is(true));
+        assertThat("4(r) != 2", four.equals(2), is(false));
+        assertThat("23/4(r) == 23.0/4.0", frac.equals(23.0/4.0), is(true));
+        assertThat("4(r) != string", four.equals(string), is(false));
+    }
+
+    public void testPlus() {
+        Rational five = new Rational(5);
+        Rational negFive = new Rational(-5);
+        Rational frac = new Rational(7,4);
+        Rational negFrac = new Rational (4,-7);
+        Rational frac2 = new Rational(239,197);
+
+        assertThat("5+5 = 10", five.plus(five), is(new Rational(10)));
+        assertThat("-5+5 = 0", negFive.plus(five), is(0));
+        assertThat("7/4+7/4=7/2", frac.plus(frac), is(new Rational(7,2)));
+        assertThat("7/4+(-4/7) = 33/28", frac.plus(negFrac), is(new Rational(33, 28)));
+        assertThat("(-4/7)+239/197=885/1379", negFrac.plus(frac2), is(new Rational(885, 1379)));
     }
 }
