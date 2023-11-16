@@ -110,6 +110,14 @@ public class Rational
         }
      }
 
+     public Rational raisedToThePowerOf(int n) {
+        if(n < 0) {
+            n = Math.abs(n);
+            return new Rational((int)Math.pow(denominator, n), (int)Math.pow(numerator, n));
+        }
+        return new Rational((int)Math.pow(numerator, n), (int)Math.pow(denominator, n));
+     }
+
      public boolean equals(Object other) {
         if(other instanceof Number) {
             Number num = (Number) other;
@@ -126,6 +134,29 @@ public class Rational
             } else {
                 return false;
             }
+        } else {
+            return false;
+        }
+     }
+
+     /*I want to put in the comments here that implementing greaterThan, and by extension the other comparison methods, presents an interesting challenge. Java does not store irrational numbers fully and MUST round them. And unlike equals(), this roudning
+      * is something that I'm not sure garuntees complete accuracy. Meaning converting a Rational to a double value and comparing using the Number method might not be the best option with garunteed accuracy. but using double values is probably the best way to implement this when
+      passed a number as an argument. I'm sure due to some Java stuff I don't know that simply converting the Rational to a double and assuming the rounding won't cause issues will work. But I'm going to implement this one the safe side and do seperate implementations for each
+      */
+     public boolean greaterThan(Number n) {
+        double d = (double)numerator/(double)denominator;
+        System.out.println("d: " + d + " n: " + n.doubleValue());
+        if(d > n.doubleValue()) {
+            return true;
+        } else {
+            return false;
+        }
+     }
+
+     public boolean greaterThan(Rational r) {
+        int GCD = gcd(denominator, r.denominator());
+        if(numerator * GCD > r.numerator() * GCD) {
+            return true;
         } else {
             return false;
         }

@@ -251,4 +251,32 @@ public class RationalTest
         assertThat("7/4 / 7/4 = 1", frac.dividedBy(frac), is(1));
         assertThat("7/4 / (4/-7) = -49/16", frac.dividedBy(negFrac), is(-49.0/16.0));
     }
+
+    public void testPower() {
+        Rational half = new Rational(1,2);
+        Rational three = new Rational(3);
+        Rational negFrac = new Rational(4,-28);
+
+        assertThat("1/2 ^ 3 = 1/8", half.raisedToThePowerOf(3), is (1.0/8.0));
+        assertThat("3 ^ 4 = 81", three.raisedToThePowerOf(4), is(81));
+        assertThat("4/-28 ^ 2 = 1/49", negFrac.raisedToThePowerOf(2), is(1.0/49.0));
+        assertThat("-4/28 ^ 3 = -1/343", negFrac.raisedToThePowerOf(3), is(-1.0/343.0));
+        assertThat("-4/28 ^ 0 = 1", negFrac.raisedToThePowerOf(0), is(1));
+        assertThat("3 ^ -3 = 1/27", three.raisedToThePowerOf(-3), is(1.0/27.0));
+    }
+
+    public void testGreaterThan() {
+        Rational two = new Rational(2);
+        Rational frac= new Rational(3,7);
+        Rational fracTwo = new Rational(9, 128);
+        Rational negFrac = new Rational(7, -87);
+
+        assertThat("2(r) > 2 is false", two.greaterThan(2), is(false));
+        assertThat("2(r) > 2(4) is false", two.greaterThan(two), is(false));
+        assertThat("2(r) > 3/7(r) is true", two.greaterThan(frac));
+        assertThat("2(r) > 3/7 is true", two.greaterThan(3.0/7.0));
+        assertThat("3/7(r) > 9/128(r) is true", frac.greaterThan(fracTwo), is(true));
+        assertThat("9/128(r) > -7/87(r) is true", fracTwo.greaterThan(negFrac));
+        assertThat("-7/87(r) > -7/87 is false", negFrac.greaterThan(7.0/-87.0));
+    }
 }
