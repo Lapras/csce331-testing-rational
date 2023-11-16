@@ -46,6 +46,11 @@ public class Rational
         return new Rational(numerator*r.numerator, denominator*r.denominator);
     }
 
+    public Rational dividedBy(Rational r) {
+        Rational divisor = new Rational(r.denominator(), r.numerator());
+        return this.times(divisor);
+    }
+
     public int numerator() {
         return numerator;
      }
@@ -73,6 +78,10 @@ public class Rational
         int den  = denominator * r.denominator;
 
         return new Rational(num1+num2, den);
+     }
+
+     public Rational minus(Rational r) {
+        return plus(new Rational(r.numerator()*-1, r.denominator()));
      }
 
      public boolean isZero() {

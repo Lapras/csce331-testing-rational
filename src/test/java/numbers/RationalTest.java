@@ -220,10 +220,35 @@ public class RationalTest
         Rational negFrac = new Rational (4,-7);
         Rational frac2 = new Rational(239,197);
 
-        assertThat("5+5 = 10", five.plus(five), is(new Rational(10)));
+        assertThat("5+5 = 10", five.plus(five), is(10));
         assertThat("-5+5 = 0", negFive.plus(five), is(0));
-        assertThat("7/4+7/4=7/2", frac.plus(frac), is(new Rational(7,2)));
-        assertThat("7/4+(-4/7) = 33/28", frac.plus(negFrac), is(new Rational(33, 28)));
-        assertThat("(-4/7)+239/197=885/1379", negFrac.plus(frac2), is(new Rational(885, 1379)));
+        assertThat("7/4+7/4=7/2", frac.plus(frac), is(7.0/2.0));
+        assertThat("7/4+(-4/7) = 33/28", frac.plus(negFrac), is(33.0/28.0));
+        assertThat("(-4/7)+239/197=885/1379", negFrac.plus(frac2), is(885.0/1379.0));
+    }
+
+     public void testMinus() {
+        Rational five = new Rational(5);
+        Rational negFive = new Rational(-5);
+        Rational frac = new Rational(7,4);
+        Rational negFrac = new Rational (4,-7);
+        Rational frac2 = new Rational(239,197);
+
+        assertThat("5-5 = 0", five.minus(five), is(0));
+        assertThat("-5-5 = 0", negFive.minus(five), is(-10));
+        assertThat("7/4-(4/-7)=65/28", frac.minus(negFrac), is(65.0/28.0));
+        assertThat("(-4/7)-239/197=885/1379", negFrac.minus(frac2), is(-2461.0/ 1379.0));
+    }
+
+    public void testDividedBy() {
+        Rational five = new Rational(5);
+        Rational negFive = new Rational(-5);
+        Rational frac = new Rational(7,4);
+        Rational negFrac = new Rational (4,-7);
+
+        assertThat("5/5=1", five.dividedBy(five), is(1));
+        assertThat("-5/5=-1", negFive.dividedBy(five), is(-1));
+        assertThat("7/4 / 7/4 = 1", frac.dividedBy(frac), is(1));
+        assertThat("7/4 / (4/-7) = -49/16", frac.dividedBy(negFrac), is(-49.0/16.0));
     }
 }
