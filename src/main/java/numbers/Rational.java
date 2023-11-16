@@ -6,7 +6,7 @@ import java.math.BigInteger;
  * Hello world!
  *
  */
-public class Rational 
+public class Rational extends Number implements Comparable<Number>
 {
 
     private int numerator;
@@ -16,22 +16,22 @@ public class Rational
         this(0);
     }
 
-    public Rational(int num) {
-        this(num, 1);
+    public Rational(int a) {
+        this(a, 1);
     }
 
-    Rational(int num, int den) {
-        if(den == 0) {
+    Rational(int a, int b) {
+        if(b == 0) {
             throw new IllegalArgumentException("Denominator cannot be equal to zero");
         }
-        numerator = num;
-        denominator = den;
+        numerator = a;
+        denominator = b;
         simplify();
     }
 
-    public Rational(Rational other) {
-        numerator = other.numerator;
-        denominator = other.denominator;
+    public Rational(Rational r) {
+        numerator = r.numerator;
+        denominator = r.denominator;
     }
 
     public Rational opposite() {
@@ -59,7 +59,7 @@ public class Rational
         return denominator;
      }
 
-     public void simplify() {
+     private void simplify() {
         int GCD = gcd(numerator, denominator);
         numerator /=  GCD;
         denominator /= GCD;
@@ -118,23 +118,24 @@ public class Rational
         return new Rational((int)Math.pow(numerator, n), (int)Math.pow(denominator, n));
      }
 
-     public boolean equals(Object other) {
-        if(other instanceof Number) {
-            Number num = (Number) other;
+     public boolean equals(Object o) {
+        if (o instanceof Rational) {
+            Rational rat = (Rational) o;
+                if(rat.numerator == numerator && rat.denominator == denominator) {
+                    return true;
+                } else {
+                    return false;
+                } 
+            }
+        else if(o instanceof Number) {
+            Number num = (Number) o;
             double dub = num.doubleValue();
-            if((double)numerator/(double)denominator == dub) {
+            if(doubleValue() == dub) {
                 return true;
             } else {
                 return false;
             }
-        } else if (other instanceof Rational) {
-            Rational rat = (Rational) other;
-            if(rat.numerator == numerator && rat.denominator == denominator) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
+        }  else {
             return false;
         }
      }
@@ -144,8 +145,7 @@ public class Rational
       passed a number as an argument. I'm sure due to some Java stuff I don't know that simply converting the Rational to a double and assuming the rounding won't cause issues will work. But I'm going to implement this one the safe side and do seperate implementations for each
       */
      public boolean greaterThan(Number n) {
-        double d = (double)numerator/(double)denominator;
-        System.out.println("d: " + d + " n: " + n.doubleValue());
+        double d = doubleValue();
         if(d > n.doubleValue()) {
             return true;
         } else {
@@ -154,8 +154,28 @@ public class Rational
      }
 
      public boolean greaterThan(Rational r) {
-        int GCD = gcd(denominator, r.denominator());
-        if(numerator * GCD > r.numerator() * GCD) {
+        int num = numerator * r.denominator();
+        int num2 = r.numerator() * denominator;
+        if(num > num2) {
+            return true;
+        } else {
+            return false;
+        }
+     }
+
+     public boolean lessThan(Number n) {
+        double d = doubleValue();
+        if(d < n.doubleValue()) {
+            return true;
+        } else {
+            return false;
+        }
+     }
+
+     public boolean lessThan(Rational r) {
+        int num = numerator * r.denominator();
+        int num2 = r.numerator() * denominator;
+        if(num < num2) {
             return true;
         } else {
             return false;
@@ -170,8 +190,44 @@ public class Rational
             return (Integer.toString(numerator) + "/" + Integer.toString(denominator));
         }
      }
+
+     public int compareTo(Number n) {
+        if(this.greaterThan(n)) {
+            return 1;
+        } else if(this.equals(n)) {
+            return 0;
+        } else {
+            return -1;
+        }
+     }
+
+     public int compareTo(Rational r) {
+        if(this.greaterThan(r)) {
+            return 1;
+        } else if(this.equals(r)) {
+            return 0;
+        } else {
+            return -1;
+        }
+     }
+
+     public int intValue() {
+        return numerator / denominator;
+     }
+
+     public float floatValue() {
+        return (float)numerator/(float)(denominator);
+     }
+
+     public double doubleValue() {
+        return (double)numerator/(double)denominator;
+     }
+
+     public long longValue() {
+        return (long)numerator/(long)denominator;
+     }
      
-     public static int gcd(int a, int b)
+     private static int gcd(int a, int b)
     {
         BigInteger bigA = BigInteger.valueOf(Math.abs(a));
         BigInteger bigB = BigInteger.valueOf(Math.abs(b));

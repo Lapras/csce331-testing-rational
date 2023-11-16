@@ -207,6 +207,7 @@ public class RationalTest
 
         assertThat("is Self", four.equals(four), is(true));
         assertThat("4(r) == 4(r)", four.equals(four2), is(true));
+        assertThat("4(r) != 23/4(r)", four.equals(frac), is(false));
         assertThat("4(r) == 4", four.equals(4), is(true));
         assertThat("4(r) != 2", four.equals(2), is(false));
         assertThat("23/4(r) == 23.0/4.0", frac.equals(23.0/4.0), is(true));
@@ -272,11 +273,84 @@ public class RationalTest
         Rational negFrac = new Rational(7, -87);
 
         assertThat("2(r) > 2 is false", two.greaterThan(2), is(false));
-        assertThat("2(r) > 2(4) is false", two.greaterThan(two), is(false));
-        assertThat("2(r) > 3/7(r) is true", two.greaterThan(frac));
-        assertThat("2(r) > 3/7 is true", two.greaterThan(3.0/7.0));
+        assertThat("2(r) > 2(r) is false", two.greaterThan(two), is(false));
+        assertThat("2(r) > 3/7(r) is true", two.greaterThan(frac), is(true));
+        assertThat("2(r) > 3/7 is true", two.greaterThan(3.0/7.0), is(true));
         assertThat("3/7(r) > 9/128(r) is true", frac.greaterThan(fracTwo), is(true));
-        assertThat("9/128(r) > -7/87(r) is true", fracTwo.greaterThan(negFrac));
-        assertThat("-7/87(r) > -7/87 is false", negFrac.greaterThan(7.0/-87.0));
+        assertThat("9/128(r) > -7/87(r) is true", fracTwo.greaterThan(negFrac), is(true));
+        assertThat("-7/87(r) > -7/87 is false", negFrac.greaterThan(7.0/-87.0), is(false));
+    }
+
+    public void testLessThan() {
+        Rational two = new Rational(2);
+        Rational frac= new Rational(3,7);
+        Rational fracTwo = new Rational(9, 128);
+        Rational negFrac = new Rational(7, -87);
+
+        assertThat("2(r) < 2 is false", two.lessThan(2), is(false));
+        assertThat("2(r) < 2(r) is false", two.lessThan(two), is(false));
+        assertThat("2(r) < 3/7(r) is false", two.lessThan(frac), is(false));
+        assertThat("3/7(r) < 2(r) is true", frac.lessThan(two), is(true));
+        assertThat("2(r) < 3/7 is false", two.lessThan(3.0/7.0), is(false));
+        assertThat("2(r) < 7/3 is true", two.lessThan(7.0/3.0), is(true));
+        assertThat("3/7(r) < 9/128(r) is false", frac.lessThan(fracTwo), is(false));
+        assertThat("9/128(r) < -7/87(r) is false", fracTwo.lessThan(negFrac), is(false));
+        assertThat("-7/87(r) < -7/87 is false", negFrac.lessThan(7.0/-87.0), is(false));
+    }
+
+    public void testCompareTo() {
+        Rational two = new Rational(2);
+        Rational frac = new Rational(3,7);
+        Rational fracTwo = new Rational(7,3);
+        Rational negFrac = new Rational(7, -87);
+
+        assertThat("2(r) is 2", two.compareTo(2), is(0));
+        assertThat("2(r) is 2(r)", two.compareTo(two), is(0));
+        assertThat("2(r) > 3/7", two.compareTo(3.0/7.0), is(1));
+        assertThat("2(r) > 3/7(r)", two.compareTo(frac), is(1));
+        assertThat("2(r) < 7/3", two.compareTo(7.0/3.0), is(-1));
+        assertThat("2(r) < 7/3(r)", two.compareTo(fracTwo), is(-1));
+        assertThat("-7/87(r) is -7/87", negFrac.compareTo(7.0/-87.0), is(0));
+        assertThat("-7/87(r) is -7/87(r)", negFrac.compareTo(negFrac), is(0));
+    }
+
+    public void testIntValue() {
+        Rational one = new Rational(1);
+        Rational negOne = new Rational(-1);
+        Rational frac = new Rational(7,3);
+
+        assertThat("1 = 1", one.intValue(), is(1));
+        assertThat("-1=-1", negOne.intValue(), is(-1));
+        assertThat("7/3 = 1 (int)", frac.intValue(), is(2));
+    }
+
+    public void testDoubleValue() {
+        Rational one = new Rational(1);
+        Rational negOne = new Rational(-1);
+        Rational frac = new Rational(7,3);
+
+        assertThat("1 = 1", one.doubleValue(), is(1.0));
+        assertThat("-1=-1", negOne.doubleValue(), is(-1.0));
+        assertThat("7/3 = 1 (int)", frac.doubleValue(), is(7.0/3.0));
+    }
+
+    public void testFloatValue() {
+        Rational one = new Rational(1);
+        Rational negOne = new Rational(-1);
+        Rational frac = new Rational(7,3);
+
+        assertThat("1 = 1", one.floatValue(), is(1.0f));
+        assertThat("-1=-1", negOne.floatValue(), is(-1.0f));
+        assertThat("7/3 = 1 (int)", frac.floatValue(), is(7.0f/3.0f));
+    }
+
+    public void testLongValue() {
+        Rational one = new Rational(1);
+        Rational negOne = new Rational(-1);
+        Rational frac = new Rational(7,3);
+
+        assertThat("1 = 1", one.longValue(), is((long)1.0));
+        assertThat("-1=-1", negOne.longValue(), is((long)-1.0));
+        assertThat("7/3 = 1 (int)", frac.longValue(), is((long)7.0/(long)3.0));
     }
 }
